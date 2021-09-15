@@ -21,39 +21,6 @@ import {
 
 const { brand, darkLight } = Colors;
 
-const Login = () => {
-    return (
-        <StyledContainer>
-            <StatusBar style="dark" />
-            <InnerContainer>
-                <PageLogo source={require('./../assets/logo.png')} resizeMode="cover" />
-                <PageTitle> TempLogin </PageTitle>
-                <SubTitle> Account Login </SubTitle>
-
-                <Formik
-                    initialValues={{ email: '', passowrd: '' }}
-                    onSubmit={(values) => { console.log(values) }}
-                >
-                    {({ handleChange, handleBlur, handleSubmit, values }) => (
-                        <StyledFormArea>
-                            <MyTextInput
-                                label="Email Address"
-                                icon="mail"
-                                placeholder="jdoe@mail.com"
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange('email')}
-                                onBlur={handleChange('email')}
-                                value={values.email}
-                                keyboardType="email-address"
-                            />
-                        </StyledFormArea>
-                    )}
-                </Formik>
-            </InnerContainer>
-        </StyledContainer>
-    );
-}
-
 const MyTextInput = ({ label, icon, ...props }: {
     [x: string]: any;
     label: string;
@@ -68,6 +35,50 @@ const MyTextInput = ({ label, icon, ...props }: {
             <StyledTextInput {...props} />
         </View>
     )
+}
+
+const Login = () => {
+    return (
+        <StyledContainer>
+            <StatusBar style="dark" />
+            <InnerContainer>
+                <PageLogo source={require('./../assets/logo.png')} resizeMode="cover" />
+                <PageTitle> TempLogin </PageTitle>
+                <SubTitle> Account Login </SubTitle>
+
+                <Formik
+                    initialValues={{ email: '', password: '' }}
+                    onSubmit={(values) => { console.log(values) }}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values }) => (
+                        <StyledFormArea>
+                            <MyTextInput
+                                label="Email Address"
+                                icon="mail"
+                                placeholder="jdoe@mail.com"
+                                placeholderTextColor={darkLight}
+                                onChangeText={handleChange('email')}
+                                onBlur={handleChange('email')}
+                                value={values.email}
+                                keyboardType="email-address"
+                            />
+                            <MyTextInput
+                                label="Password"
+                                icon="lock"
+                                placeholder="* * * * * * * *"
+                                placeholderTextColor={darkLight}
+                                onChangeText={handleChange('password')}
+                                onBlur={handleChange('password')}
+                                value={values.password}
+                                secureTextEntry={true}
+                                isPassword={true}
+                            />
+                        </StyledFormArea>
+                    )}
+                </Formik>
+            </InnerContainer>
+        </StyledContainer>
+    );
 }
 
 export default Login;
