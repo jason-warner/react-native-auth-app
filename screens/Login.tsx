@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Formik } from 'formik';
-import { Octicons } from '@expo/vector-icons';
+import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 
 // import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -16,12 +16,20 @@ import {
     StyledInputLabel,
     StyledTextInput,
     RightIcon,
-    Colors
+    Colors,
+    StyledButton,
+    ButtonText,
+    MsgBox,
+    Line,
+    ExtraView,
+    ExtraText,
+    TextLink,
+    TextLinkContent
 } from './../components/styles';
 
-const { brand, darkLight } = Colors;
+const { brand, darkLight, primary } = Colors;
 
-const MyTextInput = ({ label, icon, ...props }: {
+const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }: {
     [x: string]: any;
     label: string;
     icon: any;
@@ -33,11 +41,20 @@ const MyTextInput = ({ label, icon, ...props }: {
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <StyledTextInput {...props} />
+            {isPassword && (
+                <RightIcon onPress={() => setHidePassword(!hidePassword)} >
+                    <Ionicons
+                        name={hidePassword ? 'md-eye-off' : 'md-eye'}
+                        size={30} color={darkLight}
+                    />
+                </RightIcon>
+            )}
         </View>
     )
 }
 
 const Login = () => {
+    const [hidePassword, setHidePassword] = useState(true)
     return (
         <StyledContainer>
             <StatusBar style="dark" />
@@ -70,9 +87,34 @@ const Login = () => {
                                 onChangeText={handleChange('password')}
                                 onBlur={handleChange('password')}
                                 value={values.password}
-                                secureTextEntry={true}
+                                secureTextEntry={hidePassword}
                                 isPassword={true}
+                                hidePassword={hidePassword}
+                                setHidePassword={setHidePassword}
                             />
+                            <MsgBox>...</MsgBox>
+                            <StyledButton google={false}>
+                                <ButtonText google={false}>
+                                    Login
+                                </ButtonText>
+                            </StyledButton>
+                            <Line />
+                            <StyledButton google={true}>
+                                <Fontisto name="google" color={primary} size={25} />
+                                <ButtonText google={true}>
+                                    Sign in with Google
+                                </ButtonText>
+                            </StyledButton>
+                            <ExtraView>
+                                <ExtraText>
+                                    No Account?
+                                </ExtraText>
+                                <TextLink>
+                                    <TextLinkContent>
+                                        Sign Up
+                                    </TextLinkContent>
+                                </TextLink>
+                            </ExtraView>
                         </StyledFormArea>
                     )}
                 </Formik>

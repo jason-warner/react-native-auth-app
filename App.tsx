@@ -3,16 +3,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Login from './screens/Login';
-
+import SignUp from './screens/SignUp';
 
 export default function App() {
-  return <Login />
-  // return (
-  // <View style={styles.container}>
-  //   <Text>Open up App.tsx to start working on your app!</Text>
-  //   <StatusBar style="auto" />
-  // </View>
-  // );
+  // return <Login />
+  return <SignUp />
 }
 
 const styles = StyleSheet.create({
